@@ -1,0 +1,214 @@
+1540081650523	geckodriver	INFO	geckodriver 0.19.1
+1540081650534	geckodriver	INFO	Listening on 127.0.0.1:57576
+1540081653654	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.fjkfrKa8Daog"
+1540081658794	Marionette	INFO	Listening on port 57586
+1540081659069	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540081659649	Marionette	DEBUG	[6442450945] Frame script loaded
+1540081659650	Marionette	DEBUG	[6442450945] Frame script registered
+1540081659716	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540081661949	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+1540081662422	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=16008815
+1540081663903	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=16008815
+[Parent 9880, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 12528, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 12528, Chrome_ChildThread[Parent 9880, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 396, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 396, Chrome_Chi[Parent 9880, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10028, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10028[Child 10888, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10888, C1540081678887	Marionette	INFO	Stopped listening on port 57586
+[GPU 7676, Chrome
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1540082590271	geckodriver	INFO	geckodriver 0.19.1
+1540082590280	geckodriver	INFO	Listening on 127.0.0.1:57979
+1540082593405	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "headless" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.nWQ9QthehPGh"
+1540082597659	Marionette	INFO	Listening on port 57987
+1540082598645	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540082598703	Marionette	DEBUG	[6442450945] Frame script loaded
+1540082598754	Marionette	DEBUG	[6442450945] Frame script registered
+1540082598767	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540082601728	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+1540082601729	Marionette	DEBUG	[6442450945] Received DOM event unload for about:blank
+1540082602759	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=16008815
+1540082606146	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=16008815
+[Parent 3848, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7492, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7492, Ch[Child 7372, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7372, Chrome_ChildThread] [Parent 3848, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10764, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10764, Chrom1540082614031	Marionette	INFO	Stopped listening on port 57987
+[GPU 7320, Chr
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1540082777118	geckodriver	INFO	geckodriver 0.19.1
+1540082777128	geckodriver	INFO	Listening on 127.0.0.1:58112
+1540082780228	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.gBMC6cSaghwb"
+*** You are running in headless mode.
+1540082783690	Marionette	INFO	Listening on port 58120
+1540082783865	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540082783906	Marionette	DEBUG	[6442450945] Frame script loaded
+1540082783909	Marionette	DEBUG	[6442450945] Frame script registered
+1540082783926	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540082786318	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+1540082786931	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=16008815
+1540082788913	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=16008815
+1540157324989	geckodriver	INFO	geckodriver 0.19.1
+1540157324999	geckodriver	INFO	Listening on 127.0.0.1:58238
+1540157328101	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.7IPi53ZDKZnm"
+[GFX1-]: ClientLayerManager::BeginTransaction with IPC channel down. GPU process may have died.
+1540157333010	Marionette	INFO	Listening on port 58248
+1540157333419	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157333454	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157333477	Marionette	DEBUG	[6442450945] Frame script registered
+1540157333511	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540157334313	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157335430	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=2110&completa=interior%7C0480
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157335632	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=2110&completa=interior%7C0480
+[Parent 11180, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1840, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1840, Chrome_Chil1540157355190	Marionette	INFO	Listening on port 58313
+1540157356085	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157356120	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157356121	Marionette	DEBUG	[6442450945] Frame script registered
+1540157356138	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540157356744	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157357590	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157357852	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+[Parent 8512, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 8512, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2696, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2696, Ch[rome_ChChild 328, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 328,[Parent 8512, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7772, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7772, Chro1540157581729	Marionette	INFO	Stopped listening on port 58313
+[GPU 5736, Chrome_Chi
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ng: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157380295	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+[Parent 9704, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 9704, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4604, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/com[Parent 9704, Gecko_IOThrmon/ipc_channel_win.cc, line 346
+ead] WARNING: file z:/build/build/src/ipc/chromium/src/base/process_util_win.cc, line 188
+[Parent 9704, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2436, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2436, Chrome1540157385553	Marionette	INFO	Stopped listening on port 58396
+[GPU 11004, Chrom
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1540157558204	geckodriver	INFO	geckodriver 0.19.1
+1540157558213	geckodriver	INFO	Listening on 127.0.0.1:58563
+1540157561306	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.0IhV3o6weVy5"
+1540157565097	Marionette	INFO	Listening on port 58572
+1540157565468	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157565519	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157565520	Marionette	DEBUG	[6442450945] Frame script registered
+1540157565539	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540157566280	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157567374	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157567539	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+[Parent 11152, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 11152, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8960, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channe[Child 1800, Chrome_ChildThread] WARNINGl_win.cc, line 346
+: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1800, C[Parent 11152, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9580, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9580, Chrome_C1540157582667	Marionette	INFO	Stopped listening on port 58572
+[GPU 9916, Chrome_Ch
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1540157628877	geckodriver	INFO	geckodriver 0.19.1
+1540157628886	geckodriver	INFO	Listening on 127.0.0.1:58630
+1540157632008	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.GgiTorZohGgE"
+1540157635733	Marionette	INFO	Listening on port 58638
+1540157636140	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157636192	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157636193	Marionette	DEBUG	[6442450945] Frame script registered
+[Parent 7276, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 7276, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9516, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9516, Chrome_ChildThr[Child 4488, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4488, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium[Child 2308, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 2308, Chrome_1540157643304	Marionette	INFO	Stopped listening on port 58638
+[GPU 1676, Chrome_C
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1540157647470	geckodriver	INFO	geckodriver 0.19.1
+1540157647480	geckodriver	INFO	Listening on 127.0.0.1:58666
+1540157650624	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.yLUFb8YZFlEN"
+1540157654465	Marionette	INFO	Listening on port 58677
+1540157654767	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157654811	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157654812	Marionette	DEBUG	[6442450945] Frame script registered
+[Parent 768, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5368, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5368, [Parent 768, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4028, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4028, 1540157663977	Marionette	INFO	Stopped listening on port 58677
+[GPU 776, Chrome_Ch
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1540157678499	geckodriver	INFO	geckodriver 0.19.1
+1540157678516	geckodriver	INFO	Listening on 127.0.0.1:58711
+1540157681627	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.vskhf6xesYH4"
+1540157685232	Marionette	INFO	Listening on port 58719
+1540157685358	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157685398	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157685399	Marionette	DEBUG	[6442450945] Frame script registered
+1540157685425	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540157685925	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157686858	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157687030	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+[Child 7788, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 7788, Chrome_ChildTh[Parent 4128, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 4128, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 3924, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_c[Child 8056, Chrome_ChildThread] WARNING: pipeh error: 109: file z:/annbuild/buel_win.cc, line 346ild/src/ipc/
+chromium/src[Child 3924, Chrome_ChildThread]/ WARNING: pipe error: 109: file z:/build/chrome/common/ipc_channel_win.cc, line 346
+[Child 8056, C[Child 9404, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9404, C1540157714101	Marionette	INFO	Stopped listening on port 58719
+[GPU 6008, Chrome_ChildThread
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1&listaProcessos=18009580
+1540157749846	geckodriver	INFO	geckodriver 0.19.1
+1540157749855	geckodriver	INFO	Listening on 127.0.0.1:58834
+1540157752976	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\joaoe\\AppData\\Local\\Temp\\rust_mozprofile.zy8Vv55BdBwt"
+1540157756449	Marionette	INFO	Listening on port 58842
+1540157756633	Marionette	WARN	TLS certificate errors will be ignored for this session
+1540157756675	Marionette	DEBUG	[6442450945] Frame script loaded
+1540157756678	Marionette	DEBUG	[6442450945] Frame script registered
+1540157756700	Marionette	DEBUG	[6442450945] Received DOM event beforeunload for about:blank
+1540157757259	Marionette	DEBUG	[6442450945] Received DOM event pagehide for about:blank
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157758558	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+JavaScript warning: http://www8.tjmg.jus.br/js/awmData-menuh/awmlib2.js, line 10: unreachable code after return statement
+1540157758681	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia=1810&completa=interior%7C0480
+[Parent 8024, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Parent 8024, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8320, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8320, Chrome_C[Parent 8024, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1540157785613	Marionette	INFO	Stopped listening on port 58842
+[GPU 6308, Chrome_ChildThre
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+
+1540157770389	Marionette	DEBUG	[6442450945] Received DOM event DOMContentLoaded for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=18009580
+1540157773860	Marionette	DEBUG	[6442450945] Received DOM event pageshow for http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo=0480&numero=1&listaProcessos=18009580
+[Parent 6800, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1052, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/[Child 1048, Chrome_ChildThread] WAcommon/ipc_channel_win.cc, line 346RNING: pipe error: 109: file z:/build/build/src/ipc/
+chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 1048,[Parent 6800, Gecko_IOThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9752, Chrome_ChildThread] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 9752, Chrom1540157784350	Marionette	INFO	Stopped listening on port 58890
+[GPU 10332, Chrome_
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
