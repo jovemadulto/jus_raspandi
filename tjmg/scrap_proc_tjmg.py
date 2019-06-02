@@ -1,40 +1,101 @@
-from selenium import webdriver
-from tjmg.comarcas import com_dict
-from tjmg.dje_tjmg import get_procs
+import requests
+from bs4 import BeautifulSoup as bs
 import re
-
-def get_infos_com(cidade, num_proc): #
-    comarca = com_dict[cidade.title()]
-    ano_proc = num_proc[13:15]
-    rest_proc = num_proc[:6]
-    proc = ano_proc + rest_proc
-    options = webdriver.FirefoxOptions()
-    # options.add_argument('-headless')
-    browser = webdriver.Firefox(firefox_options=options)
-    browser.get(f'http://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo={comarca}&numero=1&listaProcessos={proc}')
-
-    def format_text(xpath, purge):
-        # purge é a string que deverá ser deletada da lista com afim de retornar somente os dados que nos interessam.
-        texto = str(browser.find_element_by_xpath(xpath).text)
-        texto = re.sub(pattern=purge, repl=' ', string=texto)
-        texto = texto.split()
-        texto = (" ".join(texto)).title()
-        return texto
-
-    # Atenção especial para o segundo argumento da função def_format. Ainda que ele seja uma string, ele é passado #
-    # como um re object, ou seja, é necessário escapar os caracteres especiais como ( ) $ \n, \r, , entre outros, caso
-    # exsistam.
-
-    juiz = format_text('/html/body/table[2]/tbody/tr[5]/td', 'Juiz\(iza\):')
-    distrib = format_text('/html/body/table[2]/tbody/tr[1]/td[1]', 'Distribuição:')
-    valor_causa = format_text('/html/body/table[2]/tbody/tr[1]/td[2]', 'Valor da causa: R\$')
-
-    print(juiz)
-    print(distrib)
-    print(valor_causa)
+import csv
+from pathlib import Path
+import pandas as pd
+from sys import exit
 
 
-# get_infos_com('Patos De Minas', '0088153-31.2016.8.13.0480')
-procs = get_procs(18, 10, 'Patos De Minas')
-for itens in procs:
-    get_infos_com('Patos De Minas', itens)
+COMARCA = "702"
+DAY = "07"
+MONTH = "08"
+
+
+def prepara_arquivos():
+    tjmg_dump_folder = Path('processos')
+    arq_proc_dje = tjmg_dump_folder / 'processos_dje_tjmg.csv'
+    arq_proc_infos = tjmg_dump_folder / 'processos_infos_tjmg.csv'
+
+    if not tjmg_dump_folder.exists():
+        tjmg_dump_folder.mkdir()
+        arq_proc_dje.write_text(data="numero_processo;comarca\n")
+        arq_proc_infos.write_text(data="numero_processo;comarca\n")
+
+
+def coleta_processos_dje(dia, mes, comarca):
+    response_dje = requests.get(f"http://www8.tjmg.jus.br/juridico/diario/index.jsp?dia={DAY}{MONTH}&completa=interior%7C0{COMARCA}")
+    dje_soup = bs(response_dje.text, 'html.parser')
+    lista_procs = re.findall(pattern=r'\d{7}\.\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}', string=str(dje_soup))
+    return lista_procs
+
+
+def salva_dados_dje(linha_de_dados):
+    tjmg_dump_folder = Path('processos')
+    arq_proc_dje = tjmg_dump_folder / 'processos_dje_tjmg.csv'
+
+    with open(file=arq_proc_dje, mode="a", newline="") as bd:
+        escreve_bd = csv.writer(bd, delimiter=';')
+        escreve_bd.writerow([linha_de_dados])
+
+
+def get_info_page(numero_processo):
+    tjmg_proc_folder = Path('processos')
+    arq_proc_dje = tjmg_proc_folder / 'processos_dje_tjmg.csv'
+    df = pd.read_csv(filepath_or_buffer=arq_proc_dje,
+                     sep=';'
+                     )
+
+    for index, row in df.iterrows():
+        numero_proc = row["numero_processo"]
+        comarca = COMARCA
+        ano_proc = numero_proc[13:15]
+        id_unico = numero_proc[:6]
+        numero_id = str(ano_proc) + str(id_unico)
+        endereco = f"https://www4.tjmg.jus.br/juridico/sf/proc_complemento.jsp?comrCodigo={comarca}&numero=1&listaProcessos={numero_id}"
+        print(endereco)
+        response_dados_completos = requests.get(endereco)
+        info_soup = bs(response_dados_completos.text, 'html.parser')
+        return info_soup
+
+
+def vara_parser(page_source):
+    tjmg_proc_folder = Path('processos')
+    arq_proc_infos = tjmg_proc_folder / 'processos_infos_tjmg.csv'
+
+    numero_proc = page_source.body.find_all("table")[1].td.text.split(" ")[-1].strip()
+
+    vara = page_source.body.find_all("table")[1].find_all("td")[1].text.strip().title()
+
+    data_distribuicao = page_source.body.find_all("table")[2].find_all("td")[0].text.split(" ")[1]
+
+    valor_causa = page_source.body.find_all("table")[2].find_all("td")[1].text.strip().split()[-1]
+
+    classe = page_source.body.find_all("table")[2].find_all("td")[2].text.strip().split()[1:]
+    classe = ' '.join(classe)
+
+    classe_origin = page_source.body.find_all("table")[2].find_all("td")[3].text.strip().split()[2:]
+    classe_origin = ' '.join(classe_origin).title()
+
+    assunto = page_source.body.find_all("table")[2].find_all("td")[4].text.split(">")[-1].strip()
+
+    comarca = page_source.body.find_all("table")[2].find_all("td")[5].text.split()[-1].strip().title()
+
+    competencia = page_source.body.find_all("table")[2].find_all("td")[6].text.split()[-1].strip().title()
+
+    dados = [numero_proc, vara, data_distribuicao, valor_causa, classe, classe_origin, assunto, comarca, competencia]
+
+    with open(file=arq_proc_infos, mode="a", encoding="UTF8") as proc_infos:
+        escreve_infos = csv.writer(proc_infos, delimiter=';')
+        escreve_infos.writerow(dados)
+
+
+if __name__ == "__main__":
+    prepara_arquivos()
+    lista_processos = coleta_processos_dje(dia=DAY, mes=MONTH, comarca=COMARCA)
+    for item in lista_processos:
+        salva_dados_dje(linha_de_dados=item)
+    with open("processos/processos_dje_tjmg.csv") as proc_dje:
+        for linhas in proc_dje.readlines():
+            html = get_info_page(numero_processo=linhas.strip())
+    vara_parser(page_source=html)
