@@ -42,12 +42,20 @@ def converter_pdfs(pasta_pdfs):
 
 
 def raspa_conteudo(conteudo):
+    """
+    Dependendo do formato do número do processo encontrado pelo regex, o número retornava no achados[0] (quando segue
+    o formato XXXXXXX.|-VV.YYYY.8.13.CCCC), e em outros retornava no achados[-1] (no formato CCCCYYXXXXXXX-D). O regex
+    também retorna "." e "-".Assim, foi necessário incluir o condicional no final do arquivo para poder identificar o
+    item correto para ser incluído no arquivo de coleta.
+    """
     procs_pad = re.compile(pattern=r"(\d{7}(\.|\-)\d{2}\.\d{4}\.\d\.\d{2}\.\d{4})|(\d{12}-\d)")
     ocorrencias = procs_pad.findall(string=conteudo)
     processos = "uberlandia.csv"
     with open(pasta_output.joinpath(processos).absolute(), mode="a") as processos:
         for achados in ocorrencias:
-            processos.writelines(achados[-1] + ",\n")
+            for item in achados:
+                if len(item) > 3:
+                    processos.writelines(item + ",\n")
 
 
 if __name__ == "__main__":

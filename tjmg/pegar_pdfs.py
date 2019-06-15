@@ -12,10 +12,16 @@ from time import sleep
 
 
 def navegador():
-
+    """
+    A variável "mimes" deve receber os MIME-Types de todos os arquivos que serão baixados automaticamente pelo Firefox
+    (GeckoDriver). No entanto, não parece responder bem aos documentos entregues pelo TJMG, não importando qual MIME-Type
+    eu coloque, depois de muita investigação.
+    Em compensação, marcando a opção "Não perguntar novamente quando baixar um arquivo deste mesmo tipo" na caixa de
+    diálogo do Firefox resolve o problema durante aquela execução do GeckoDriver.
+    """
     options = Options()
 
-    mimes = "multipart/x-zip, application/zip, application/x-zip-compressed, text/xml, application/xml, application/plain, application/x-rtf, application/rtf, text/richtext, www/mime, multipart/x-gzip, application/x-gzip, application/x-compressed, application/msword, text/plain, application/x-www-form-urlencoded, application/x-pdf, application/pdfss, application/vnd.adobe.xfdf, application/vnd.fdf, application/vnd.adobe.xdp+xml, audio/wave, application/pdf, application/octet-stream"
+    mimes = "audio/wave"
 
     options.set_preference("browser.download.useDownloadDir", True)
     options.set_preference("browser.download.folderList", 0)
