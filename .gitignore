@@ -106,3 +106,8 @@ venv.bak/
 #tempfiles
 tjmg/downloads/*/*.PDF
 tjmg/resultados/*.PDF
+geckodriver.log
+.idea/
+tjmg/datas.csv
+tjsp/teste.html
+tjsp/logs/
