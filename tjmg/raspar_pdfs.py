@@ -1,44 +1,22 @@
-from pdfminer.pdfpage import PDFPage
-from pdfminer.pdfinterp import PDFResourceManager
-from pdfminer.pdfinterp import PDFPageInterpreter
-from pdfminer.layout import LAParams
-from pdfminer.converter import TextConverter
 from pathlib import Path
-from io import StringIO
 from os import listdir
 import re
 import shutil
+import os
+import fitz
 from sys import exit
 
 
 def converter_pdfs(pasta_pdfs):
-    for arquivos in listdir(pasta_pdfs):
-        rsrcmgr = PDFResourceManager()
-        retstr = StringIO()
-        codec = 'utf-8'
-        laparams = LAParams()
-        device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
 
-        with open(pasta_pdfs.joinpath(arquivos), 'rb') as fp:
-            interpreter = PDFPageInterpreter(rsrcmgr, device)
-            password = ""
-            maxpages = 0
-            caching = True
-            pagenos=set()
+    for nome_arquivo in os.listdir(pasta_pdfs):
+        print(f"Escaneando {nome_arquivo}")
+        pdf = fitz.Document(pasta_input.joinpath(nome_arquivo))
 
-            for page in PDFPage.get_pages(fp,
-                                          pagenos,
-                                          maxpages=maxpages,
-                                          password=password,
-                                          caching=caching,
-                                          check_extractable=True):
-                interpreter.process_page(page)
-
-            text = retstr.getvalue()
-
-            device.close()
-            retstr.close()
-            return text
+        for pag_num in range(0, pdf.pageCount):
+            pagina = pdf.loadPage(pag_num)
+            texto = pagina.getText("text")
+            raspa_conteudo(conteudo=texto)
 
 
 def raspa_conteudo(conteudo):
@@ -48,24 +26,25 @@ def raspa_conteudo(conteudo):
     também retorna "." e "-".Assim, foi necessário incluir o condicional no final do arquivo para poder identificar o
     item correto para ser incluído no arquivo de coleta.
     """
-    procs_pad = re.compile(pattern=r"(\d{7}(\.|\-)\d{2}\.\d{4}\.\d\.\d{2}\.\d{4})|(\d{12}-\d)")
+    procs_pad = re.compile(r"(\d{7}([-.])\d{2}\.\d{4}\.\d\.\d{2}\.\d{4})|(\d{12}-\d)")
     ocorrencias = procs_pad.findall(string=conteudo)
     processos = "uberlandia.csv"
     with open(pasta_output.joinpath(processos).absolute(), mode="a") as processos:
         for achados in ocorrencias:
             for item in achados:
                 if len(item) > 3:
-                    processos.writelines(item + ",\n")
+                    print(item)
+                    # processos.writelines(item + ",\n")
 
 
 if __name__ == "__main__":
-    pasta_input = Path("downloads/UDI/")
+    pasta_input = Path("downloads/teste/")
     pasta_output = Path("resultados")
 
     if not pasta_output.exists():
         pasta_output.mkdir()
 
     for arquivos in listdir(pasta_input):
-        texto = converter_pdfs(pasta_pdfs=pasta_input)
-        raspa_conteudo(conteudo=texto)
+        converter_pdfs(pasta_pdfs=pasta_input)
+
         shutil.move(f"{pasta_input}\\{arquivos}", f"{pasta_output}")
