@@ -2,16 +2,13 @@ from pathlib import Path
 from os import listdir
 import re
 import shutil
-import os
 import fitz
 from sys import exit
 
 
-def converter_pdfs(pasta_pdfs):
-
-    for nome_arquivo in os.listdir(pasta_pdfs):
-        print(f"Escaneando {nome_arquivo}")
-        pdf = fitz.Document(pasta_input.joinpath(nome_arquivo))
+def converter_pdfs(arquivo):
+        print(f"Escaneando {arquivo}")
+        pdf = fitz.Document(pasta_input.joinpath(arquivo))
 
         for pag_num in range(0, pdf.pageCount):
             pagina = pdf.loadPage(pag_num)
@@ -33,18 +30,17 @@ def raspa_conteudo(conteudo):
         for achados in ocorrencias:
             for item in achados:
                 if len(item) > 3:
-                    print(item)
-                    # processos.writelines(item + ",\n")
+                    processos.writelines(item + ",\n")
 
 
 if __name__ == "__main__":
-    pasta_input = Path("downloads/teste/")
+    pasta_input = Path("downloads/BH/")
     pasta_output = Path("resultados")
 
     if not pasta_output.exists():
         pasta_output.mkdir()
 
     for arquivos in listdir(pasta_input):
-        converter_pdfs(pasta_pdfs=pasta_input)
-
-        shutil.move(f"{pasta_input}\\{arquivos}", f"{pasta_output}")
+        converter_pdfs(arquivos)
+        exit()
+        shutil.move(f"{pasta_input}/{arquivos}", f"{pasta_output}")
