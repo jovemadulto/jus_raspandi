@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import UnexpectedAlertPresentException
-import csv
 import speech_recognition as sr
 import os
 import shutil
@@ -77,7 +76,6 @@ def baixa_diario(driver, data):
                 os.remove(audio_file)
             else:
                 os.remove(audio_file)
-
 
         except FileNotFoundError:
             os.remove(audio_file)
