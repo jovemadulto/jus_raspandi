@@ -42,5 +42,4 @@ if __name__ == "__main__":
 
     for arquivos in listdir(pasta_input):
         converter_pdfs(arquivos)
-        exit()
         shutil.move(f"{pasta_input}/{arquivos}", f"{pasta_output}")
