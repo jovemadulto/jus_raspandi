@@ -131,6 +131,13 @@ def burla_captcha():
 
     captcha = resolve_captcha(audio_fp=audio_filepath)
 
+    while len(captcha) != 5:
+        os.remove(audio_filepath)
+        ff.find_element_by_link_text("Gerar nova imagem").click()
+        sleep(2)
+        ff.find_element_by_link_text("Baixar o áudio").click()
+        captcha = resolve_captcha(audio_fp=audio_filepath)
+
     captcha_form = ff.find_element_by_id("captcha_text").send_keys(captcha)
     sleep(3)
     os.remove(audio_filepath)
@@ -210,7 +217,6 @@ def pega_dados_mov(numero_processo):
 
     cod_html = ff.page_source
     df = pd.read_html(cod_html)
-    print(len(df))
     df = df[2]
     df.drop(labels=[0], axis=1, inplace=True)
     for promotores in df.dropna()[df[2].dropna().astype("str").str.contains(r"PROMOTOR\(A\) \d+")][2]:
@@ -243,13 +249,14 @@ if __name__ == "__main__":
 
     # prepara_df(comarca=COMARCA)
     csv_limpo = Path(f"resultados/{COMARCA}_limpo.csv")
-    df_csv_limpo = pd.read_csv(csv_limpo, index_col=0).astype(dtype="str")
+    df_csv_limpo = pd.read_csv(csv_limpo, index_col=0)
 
     df_p_completar = df_csv_limpo[df_csv_limpo["vara"].isna()]
     while True:
         try:
             for index, row in df_p_completar.iterrows():
                 numero = row["num_proc"]
+                print(index)
                 num_proc = valida_dados(comarca=COMARCA, num_proc=numero)
                 html_dados = navega_pags_requests(numero_processo=num_proc)
                 if "clique em 'Gerar nova imagem'" in html_dados:
@@ -260,7 +267,10 @@ if __name__ == "__main__":
                 df_csv_limpo.to_csv(Path(f"resultados/{COMARCA}_limpo.csv"))
 
         except NoSuchElementException:
-            novo_captcha = ff.find_element_by_link_text("Gerar nova imagem").click()
-            burla_captcha()
+            if "O número digitado não corresponde à imagem exibida" in ff.page_source:
+                novo_captcha = ff.find_element_by_link_text("Gerar nova imagem").click()
+                burla_captcha()
+                continue
 
-            continue
+            if "A Consulta Processual aos processos de 1a. Instância encontra-se indisponível." in ff.page_source:
+                continue
