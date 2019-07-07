@@ -80,47 +80,64 @@ def navega_pags_requests(numero_processo):
 
 
 def pega_metadados(codigo_fonte):
+    try:
+        if "Este processo é baixado de natureza criminal" not in codigo_fonte.getText():
 
-    if "Este processo é baixado de natureza criminal" not in codigo_fonte.getText():
+            meta_vara = codigo_fonte.find_all("tr")[2].find_all("td")[0].text.strip()
+            meta_status = codigo_fonte.find_all("tr")[2].find_all("td")[1].text.strip()  # Ativo / Baixado
+            meta_data_distribuicao = codigo_fonte.find_all("tr")[3].find_all("td")[0].text.strip().split(" ")[1]
+            meta_valor_causa = codigo_fonte.find_all("tr")[3].find_all("td")[1].text.strip().split(" ")[-1]
 
-        meta_vara = codigo_fonte.find_all("tr")[2].find_all("td")[0].text.strip()
-        meta_status = codigo_fonte.find_all("tr")[2].find_all("td")[1].text.strip()  # Ativo / Baixado
-        meta_data_distribuicao = codigo_fonte.find_all("tr")[3].find_all("td")[0].text.strip().split(" ")[1]
-        meta_valor_causa = codigo_fonte.find_all("tr")[3].find_all("td")[1].text.strip().split(" ")[-1]
+            meta_classe = codigo_fonte.find_all("tr")[4].find_all("td")[0].text.split()[1:]
+            meta_classe = " ".join(meta_classe)
 
-        meta_classe = codigo_fonte.find_all("tr")[4].find_all("td")[0].text.split()[1:]
-        meta_classe = " ".join(meta_classe)
+            meta_assunto = codigo_fonte.find_all("tr")[5].find_all("td")[0].text.split()[1:]
+            meta_assunto = " ".join(meta_assunto)
 
-        meta_assunto = codigo_fonte.find_all("tr")[5].find_all("td")[0].text.split()[1:]
-        meta_assunto = " ".join(meta_assunto)
+            meta_municipio = codigo_fonte.find_all("tr")[6].find_all("td")[0].text.split()[3:]
+            meta_municipio = " ".join(meta_municipio)
 
-        meta_municipio = codigo_fonte.find_all("tr")[6].find_all("td")[0].text.split()[3:]
-        meta_municipio = " ".join(meta_municipio)
+            meta_competencia = codigo_fonte.find_all("tr")[6].find_all("td")[1].text.split()[-1]
 
-        meta_competencia = codigo_fonte.find_all("tr")[6].find_all("td")[1].text.split()[-1]
+            dados = {
+                "vara": meta_vara,
+                "status": meta_status,
+                "data_distribuicao": meta_data_distribuicao,
+                "valor_causa": meta_valor_causa,
+                "assunto": meta_assunto,
+                "classe": meta_classe,
+                "municipio": meta_municipio,
+                "competencia": meta_competencia
+            }
 
-        dados = {
-            "vara": meta_vara,
-            "status": meta_status,
-            "data_distribuicao": meta_data_distribuicao,
-            "valor_causa": meta_valor_causa,
-            "assunto": meta_assunto,
-            "classe": meta_classe,
-            "municipio": meta_municipio,
-            "competencia": meta_competencia
-        }
+            num_juiz, num_promotor = pega_dados_mov(numero_processo=num_proc)
 
-        num_juiz, num_promotor = pega_dados_mov(numero_processo=num_proc)
+            return dados, num_juiz, num_promotor
+
+        else:
+            meta_vara = codigo_fonte.find_all("tr")[2].find_all("td")[0].text.strip()
+            meta_status = codigo_fonte.find_all("tr")[2].find_all("td")[1].text.strip()
+
+            dados = {
+                "vara": meta_vara,
+                "status": meta_status,
+                "data_distribuicao": None,
+                "valor_causa": None,
+                "assunto": None,
+                "classe": None,
+                "municipio": None,
+                "competencia": None
+            }
+
+            num_juiz = num_promotor = None
 
         return dados, num_juiz, num_promotor
 
-    else:
-        meta_vara = codigo_fonte.find_all("tr")[2].find_all("td")[0].text.strip()
-        meta_status = codigo_fonte.find_all("tr")[2].find_all("td")[1].text.strip()
+    except IndexError:
 
         dados = {
-            "vara": meta_vara,
-            "status": meta_status,
+            "vara": None,
+            "status": None,
             "data_distribuicao": None,
             "valor_causa": None,
             "assunto": None,
@@ -131,7 +148,7 @@ def pega_metadados(codigo_fonte):
 
         num_juiz = num_promotor = None
 
-    return dados, num_juiz, num_promotor
+        return dados, num_juiz, num_promotor
 
 
 def pega_dados_mov(numero_processo):
