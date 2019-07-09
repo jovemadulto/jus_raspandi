@@ -128,19 +128,22 @@ def burla_captcha():
 
     desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
     audio_filepath = str(Path(desktop) / 'audio.wav')
-
-    captcha = resolve_captcha(audio_fp=audio_filepath)
-
-    while len(captcha) != 5:
-        os.remove(audio_filepath)
-        ff.find_element_by_link_text("Gerar nova imagem").click()
-        sleep(2)
-        ff.find_element_by_link_text("Baixar o áudio").click()
+    try:
         captcha = resolve_captcha(audio_fp=audio_filepath)
 
-    captcha_form = ff.find_element_by_id("captcha_text").send_keys(captcha)
-    sleep(3)
-    os.remove(audio_filepath)
+        while len(captcha) != 5:
+            os.remove(audio_filepath)
+            ff.find_element_by_link_text("Gerar nova imagem").click()
+            sleep(2)
+            ff.find_element_by_link_text("Baixar o áudio").click()
+            captcha = resolve_captcha(audio_fp=audio_filepath)
+
+        captcha_form = ff.find_element_by_id("captcha_text").send_keys(captcha)
+        sleep(3)
+        os.remove(audio_filepath)
+
+    except ValueError:
+        os.remove(audio_filepath)
 
 
 def pega_metadados():
