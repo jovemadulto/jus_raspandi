@@ -147,7 +147,7 @@ def burla_captcha():
 
 
 def pega_metadados():
-    sleep(3)
+    ff.implicitly_wait(time_to_wait=10)
     if "Este processo é baixado de natureza criminal" not in ff.page_source:
 
         meta_vara = ff.find_element_by_xpath("/html/body/table[1]/tbody/tr[2]/td[1]/b").text
