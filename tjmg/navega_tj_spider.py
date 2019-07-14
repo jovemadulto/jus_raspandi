@@ -11,7 +11,9 @@ class TjMGSpider(scrapy.Spider):
     custom_settings ={
         "CLOSESPIDER_ITEMCOUNT": "10",
         "ROBOTSTXT_OBEY": "False",
-        "HTTPCACHE_ENABLED": "1"
+        "HTTPCACHE_ENABLED": "1",
+        "CONCURRENT_REQUESTS": "5",
+        "FEED_EXPORT_ENCODING": "utf-8"
 
     }
 
@@ -56,25 +58,63 @@ class TjMGSpider(scrapy.Spider):
         Deste modo, ao tentar coletar informações destes, só é possível obter conhecimento em qual vara o feito
         tramitou"""
 
-        vara = response.css("html body table.tabela_formulario b::text").extract()[1].strip()
-        status = response.css("html body table.tabela_formulario b::text").extract()[2].strip()
-        data_distrib = response.css("html body table.corpo td").extract()[2].split()[2].split("</b>")[-1]
-        valor_causa = response.css("html body table.corpo td").extract()[3].split("R$")[-1].strip().split(" ")[0]
+        numero = len(response.xpath('//tr/td/b').extract())
+        check_disp = len(response.xpath("//p/b/text()").extract())
+        """check_disp procura tags de parágrafos nas páginas de metadados dos procssos. Nos casos onde não é possível
+        obter dados em decorrência de sua natureza, existe somente 1 tag na página. Por outro lado, onde não é possível
+        navegar, o conteúdo da página é substituído por um texto dentro de <p> tags, por isso a checagem."""
 
-        classe_proc = response.css("html body table.corpo td").extract()[4].split("</b> ")[-1].split(' </td>')[0]
-        assunto = response.css("html body table.corpo td").extract()[6].split("Assunto:")[-1].strip().split("</b>")[-1].strip().strip("</td>").strip().replace("&gt;", ">")
+        if numero != 0:
+            if check_disp != 3:
+                num_proc = response.xpath('//tr/td/b/text()').re("\d{7}-\d{2}.\d{4}\.\d.\d{2}.\d{4}")[0]
+                vara = response.xpath('//table/tr/td/b').re_first(r"((INFÂNCIA|\d{1,2}ª|CR.PESSOA/PREC.CRIME|EXECUÇÕES|JESP CÍVEL) "
+                                                                  r"(E|VARA|UJ-\dº JD|UJ - \dº JD|T. RECURSAL|FAZENDA|FAZ.L.12153/09|FAMÍLIA/SUCESSÕES|CRIMINAIS) "
+                                                                  r"(JUVENTUDE|CRIMINAL|CÍVEL|JESP CÍVEL|CRIME|PÚBLICA))")
+                status = response.xpath('//tr/td/b/text()').re_first("(ATIVO|BAIXADO)")
 
-        municip = response.css("html body table.corpo td").extract()[7].split("</b>")[-1].strip(" </td>")
+                data_distrib = response.xpath('//tr/td/text()').extract()[8].strip()
+                valor_causa = response.xpath('//tr/td/text()').extract()[9].strip("R$ ").replace(".", "").replace(",", ".")
+                classe_proc = response.xpath('//tr/td/text()').extract()[10].strip()
+                assunto = response.xpath('//tr/td/text()').extract()[11].strip()
+                municip = response.xpath('//tr/td/text()').extract()[12].strip()
+                competencia = response.xpath('//tr/td/text()').extract()[13].strip()
 
-        competencia = response.css("html body table.corpo td").extract()[8].split("</b>")[-1].strip(" </td>")
+                yield {
+                    "num_proc": num_proc,
+                    "vara": vara,
+                    "status": status,
+                    "data_distrib": data_distrib,
+                    "valor_causa": valor_causa,
+                    "classe_proc": classe_proc,
+                    "assunto": assunto,
+                    "municip": municip,
+                    "competencia": competencia,
+                }
 
-        yield {
-            "vara": vara,
-            "status": status,
-            "data_distrib": data_distrib,
-            "valor_causa": valor_causa,
-            "classe_proc": classe_proc,
-            "assunto": assunto,
-            "municip": municip,
-            "competencia": competencia
-        }
+            else:
+                num_proc = response.xpath('//tr/td/b/text()').re("\d{7}-\d{2}.\d{4}\.\d.\d{2}.\d{4}")[0]
+                vara = response.xpath('//tr/td/b/text()').extract()[1].strip()
+                status = response.xpath('//tr/td/b/text()').extract()[2].strip()
+                yield {
+                    "num_proc": num_proc,
+                    "vara": vara,
+                    "status": status,
+                    "data_distrib": None,
+                    "valor_causa": None,
+                    "classe_proc": None,
+                    "assunto": None,
+                    "municip": None,
+                    "competencia": None
+                }
+        else:
+            yield {
+                "num_proc": None,
+                "vara": None,
+                "status": None,
+                "data_distrib": None,
+                "valor_causa": None,
+                "classe_proc": None,
+                "assunto": None,
+                "municip": None,
+                "competencia": None
+            }
