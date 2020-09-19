@@ -1,62 +1,10 @@
 import requests
-import csv
+import pandas as pd
 from pathlib import Path
 from bs4 import BeautifulSoup
 from sys import exit
 from time import sleep
-
-
-def plan_csv():
-    pasta_logs = Path('logs')
-    arq_log = pasta_logs / f'resultado-raspagem-cod{ASSUNTO}.csv'
-    if not pasta_logs.exists():
-        pasta_logs.mkdir()
-    arq_log.write_text(data='nums_procs|assunto_proc|class_proc|relator|comarca|julgamento|publicacao|registro|ementa|referencia\n', encoding='UTF8')
-    return arq_log
-
-
-def parse_classe_assunto(item):
-    texto = item.get_text()
-    texto = texto.strip()
-    texto = texto.split(' ')
-    del texto[0]
-    texto = ' '.join(texto)
-    texto = texto.split('/')
-    classe_proc, assunto_proc = texto[0].strip(), texto[1].strip()
-    return classe_proc, assunto_proc
-
-def parse_nums(item):
-    texto = item.get_text()
-    return texto
-
-
-def parse_relator(item):
-    texto = item.get_text().strip().split(' ')
-    del texto[0]
-    texto = ' '.join(texto)
-    return texto
-
-
-def parse_comarca(item):
-    texto = item.get_text().strip().split(' ')
-    del texto[0]
-    texto = ' '.join(texto).strip()
-    return texto
-
-
-def parse_datas(item):
-    texto = item.get_text().strip().split(' ')
-    del texto[0: 2]
-    texto = texto[-1].split(':')[-1].strip()
-    return texto
-
-
-def parse_ementa(item):
-    texto = item.get_text().strip()
-    texto = texto.split('\xa0')
-    ementa = texto[0].strip()
-    referencia = ' '.join(texto[1:])
-    return ementa, referencia
+import parseadores
 
 
 def navegador():
@@ -67,7 +15,7 @@ def navegador():
                 headers={
                     'X-Requested-With': 'XMLHttpRequest'
                 },
-                verify=False)
+                verify=True)
     tj_html = BeautifulSoup(tj_req.text, 'html.parser')
     qtde_acordaos = tj_html.find(id='paginacaoSuperior-A').find('td').text.strip().split()[-1]
     qtde_paginas = int(qtde_acordaos) // 20
@@ -90,48 +38,48 @@ def raspador(session, pagina_esaj):
         nums_procs = processo.find('a', class_='esajLinkLogin downloadEmenta').get_text().strip()
 
         clas_assunto = processo.find_all('tr', class_='ementaClass2')[0]
-        assunto_proc, class_proc = parse_classe_assunto(clas_assunto)
+        assunto_proc, class_proc = parseadores.classe_assunto(clas_assunto)
 
         relator = processo.find_all('tr', class_='ementaClass2')[1]
-        relator = parse_relator(relator)
+        relator = parseadores.relator(relator)
 
         comarca = processo.find_all('tr', class_='ementaClass2')[2]
-        comarca = parse_comarca(comarca)
+        comarca = parseadores.comarca(comarca)
 
         julgamento = processo.find_all('tr', class_='ementaClass2')[4]
-        julgamento = parse_datas(julgamento)
+        julgamento = parseadores.datas(julgamento)
 
         publicacao = processo.find_all('tr', class_='ementaClass2')[5]
-        publicacao = parse_datas(publicacao)
-
-        registro = processo.find_all('tr', class_='ementaClass2')[6]
-        registro = parse_datas(registro)
+        publicacao = parseadores.datas(publicacao)
 
         ementa = processo.find_all('div', class_='mensagemSemFormatacao')[0]
-        ementa, referencia = parse_ementa(ementa)
-        print("-----------------------\n"
-              "Numero do Processo: {}\n"
-              "Assunto: {}\n"
-              "Classe: {}\n"
-              "Relator: {}\n"
-              "Comarca: {}\n"
-              "Julgamento: {}\n"
-              "Publicação: {}\n"
-              "Registro: {}\n"
-              "Ementa: {}\n"
-              "Referencia: {}\n"
-              .format(nums_procs, assunto_proc, class_proc, relator, comarca, julgamento, publicacao, registro, ementa,
-                      referencia))
+        ementa, referencia = parseadores.ementa(ementa)
+        print(f"""-----------------------
+Numero do Processo: {nums_procs}
+Assunto: {assunto_proc}
+Classe: {class_proc}
+Relator: {relator}
+Comarca: {comarca}
+Julgamento: {julgamento}
+Publicação: {publicacao}
+Ementa: {ementa}
+Referencia: {referencia}""")
 
-        dados_procs = ["{}|{}|{}|{}|{}|{}|{}|{}|{}|{}"
-                           .format(nums_procs, assunto_proc, class_proc, relator, comarca, julgamento, publicacao,
-                                   registro, ementa, referencia)]
+        dados_procs = {
+            "num_procs": nums_procs,
+            "assunto_proc": assunto_proc,
+            "class_proc": class_proc,
+            "relator": relator,
+            "comarca": comarca,
+            "julgamento": julgamento,
+            "publicacao": publicacao,
+            "ementa": ementa,
+            "referencia": referencia
+            }
         return dados_procs
 
-
-
     pagina_esaj += 1
-    sleep(5)
+    sleep(2)
 
 
 ASSUNTO = "10433,10434,10435,10436,10437"
@@ -174,21 +122,38 @@ payload = {
             "dados.dtPublicacaoFim": DATA_FIM,
             "dados.dtRegistroInicio": "",
             "dados.dtRegistroFim": "",
-            "dados.origensSelecionadas": ["T", "R"],
-            "tipoDecisaoSelecionados": ["A", "H", "D"],
+            "dados.origensSelecionadas": ["T"],
+            "tipoDecisaoSelecionados": ["A"],
             "dados.ordenarPor": "dtPublicacao"
         }
 
 arquivo_html = open(file='teste.html', mode='w')
 
 if __name__ == "__main__":
-    arquivo_logs = plan_csv()
-    arq_log = Path(arquivo_logs)
     sessao, source, paginas = navegador()
+
+    pasta_logs = Path('logs')
+    if not pasta_logs.exists():
+        pasta_logs.mkdir()
+
+    df_processos = pd.DataFrame(columns=["num_procs",
+                                        "assunto_proc",
+                                        "class_proc",
+                                        "relator",
+                                        "comarca",
+                                        "julgamento",
+                                        "publicacao",
+                                        "ementa",
+                                        "referencia"])
 
     for pagina in range(1, paginas + 1):
         dados = raspador(session=sessao, pagina_esaj=pagina)
-        with open(arq_log, mode='a', encoding='UTF-8', newline='') as arquivo_csv:
-            writer = csv.writer(arquivo_csv)
-            writer.writerow(dados)
-            sleep(5)
+        linha = 1
+        try:
+            for metadados in dados.keys():
+                df_processos.at[linha, metadados] = dados[metadados]
+        except AttributeError as e:
+            pass
+        linha += 1
+
+        df_processos.to_csv(f"{pasta_logs}/df_{ASSUNTO}.csv", mode="a")
